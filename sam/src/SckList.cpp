@@ -627,7 +627,7 @@ uint8_t SckList::_formatNET(GroupIndex wichGroup, char* buffer)
 	// Prepare buffer for ESP format
 	// Write time
 	base->epoch2iso(flash.readULong(wichGroup.address + GROUP_TIME), base->ISOtimeBuff);
-	sprintf(buffer, "{t:%s", base->ISOtimeBuff);
+	sprintf(buffer, "{\"t\":\"%s\"", base->ISOtimeBuff);
 
     if (debug) {
         sprintf(base->outBuff, "F: (%s) -> ", base->ISOtimeBuff);
@@ -645,14 +645,14 @@ uint8_t SckList::_formatNET(GroupIndex wichGroup, char* buffer)
         String thisReading;
         for (uint32_t r=wichGroup.address+2; r<wichGroup.address+readSize; r++) thisReading.concat((char)flash.readByte(r));
 
-        if (base->sensors[thisType].id > 0 && !thisReading.startsWith("null")) {
+        if (base->sensors[thisType].shortTitle != NULL && !thisReading.startsWith("null")) {
 
             if (debug) {
                 sprintf(base->outBuff, "%s %s %s, ", base->sensors[thisType].title, thisReading.c_str(), base->sensors[thisType].unit);
                 base->sckOut(PRIO_MED, false);
             }
 
-            sprintf(buffer + strlen(buffer), ",%u:%s", base->sensors[thisType].id, thisReading.c_str());
+            sprintf(buffer + strlen(buffer), ",\"%s\":%s", base->sensors[thisType].shortTitle, thisReading.c_str());
         }
 
         wichGroup.address += readSize;

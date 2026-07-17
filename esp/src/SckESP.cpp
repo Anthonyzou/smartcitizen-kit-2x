@@ -188,6 +188,8 @@ void SckESP::SAMbusUpdate()
             strcpy(config.token.token, json["to"]);
             strcpy(config.mqtt.server, json["ms"]);
             config.mqtt.port = json["mp"];
+            strcpy(config.mqtt.user, json["mu"]);
+            strcpy(config.mqtt.pass, json["mw"]);
             strcpy(config.ntp.server, json["ns"]);
             config.ntp.port = json["np"];
             SAMversion = json["ver"].as<String>();
@@ -325,7 +327,7 @@ bool SckESP::mqttConnect()
 
     MQTTclient.setServer(config.mqtt.server, config.mqtt.port);
 
-    if (MQTTclient.connect(config.token.token)) {
+    if (MQTTclient.connect(config.token.token, config.mqtt.user, config.mqtt.pass)) {
         debugOUT(F("Established MQTT connection..."));
         return true;
     } else {
@@ -829,6 +831,8 @@ bool SckESP::saveConfig()
 	json["to"] = config.token.token;
 	json["ms"] = config.mqtt.server;
 	json["mp"] = config.mqtt.port;
+	json["mu"] = config.mqtt.user;
+	json["mw"] = config.mqtt.pass;
 	json["ns"] = config.ntp.server;
 	json["np"] = config.ntp.port;
     json["lb"] = config.ledBrightness;
@@ -870,6 +874,8 @@ bool SckESP::loadConfig()
 
 			if (json.containsKey("ms")) strcpy(config.mqtt.server, json["ms"]);
 			if (json.containsKey("mp")) config.mqtt.port = json["mp"];
+			if (json.containsKey("mu")) strcpy(config.mqtt.user, json["mu"]);
+			if (json.containsKey("mw")) strcpy(config.mqtt.pass, json["mw"]);
 			if (json.containsKey("ns")) strcpy(config.ntp.server, json["ns"]);
 			if (json.containsKey("np")) config.ntp.port = json["np"];
 

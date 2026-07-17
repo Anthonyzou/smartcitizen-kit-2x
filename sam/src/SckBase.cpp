@@ -818,6 +818,8 @@ bool SckBase::sendConfig()
 	json["to"] = config.token.token;
 	json["ms"] = config.mqtt.server;
 	json["mp"] = config.mqtt.port;
+	json["mu"] = config.mqtt.user;
+	json["mw"] = config.mqtt.pass;
 	json["ns"] = config.ntp.server;
 	json["np"] = config.ntp.port;
 	json["ver"] = SAMversion;

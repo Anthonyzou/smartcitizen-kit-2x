@@ -23,7 +23,7 @@
 
 struct Credentials { bool set=false; char ssid[64]="null"; char pass[64]="null"; };
 struct Token { bool set=false; char token[7]="null"; };
-struct Mqtt { char server[64]; uint16_t port; };
+struct Mqtt { char server[64]; uint16_t port; char user[64]; char pass[64]; };
 struct Ntp { char server[64]; uint16_t port; };
 struct ESP_Configuration {
 	Credentials credentials;

@@ -1,5 +1,5 @@
 #pragma once
-#include "Sensors.h"
+#include "Config2.h"
 
 static const uint32_t SC_DEFAULT_READING_INTERVAL = 60;
 static const uint32_t SC_MIN_READING_INTERVAL = 5;
@@ -49,9 +49,7 @@ struct Debug { bool sdcard=false; bool serial=false; bool oled=false; bool flash
 struct SensorConfig { bool enabled; uint8_t everyNint; };
 struct Debug { bool sdcard=false; bool serial=false; bool flash=false; bool speed=false; };
 #endif
-struct Credentials { bool set=false; char ssid[64]="null"; char pass[64]="null"; };
-struct Token { bool set=false; char token[7]="null"; };
-struct Mqtt { char server[64]="mqtt.smartcitizen.me"; uint16_t port=1883; };
+
 struct Ntp { char server[64]="ntp.smartcitizen.me"; uint16_t port=80; };
 struct MAC { bool valid=false; char address[18]="not synced"; char staaddress[18]="not synced";};
 struct BattConf { int16_t chargeCurrent=768; uint32_t battCapacity=2000; };
