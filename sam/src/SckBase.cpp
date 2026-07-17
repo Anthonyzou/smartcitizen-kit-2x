@@ -678,6 +678,8 @@ void SckBase::loadConfig()
 		saveConfig(true);
 	}
 
+    if (config.credentials.set && config.token.set) config.mode = MODE_NET;
+    
 	// Load saved intervals
 	for (uint8_t i=0; i<SENSOR_COUNT; i++) {
 		OneSensor *wichSensor = &sensors[static_cast<SensorType>(i)];
